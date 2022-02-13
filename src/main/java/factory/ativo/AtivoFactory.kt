@@ -1,12 +1,9 @@
 package factory.ativo
 
+import domain.AtivoRendaFixa
+import factory.ativo.instances.*
 import factory.ativo.params.TipoAtivo
 import factory.ativo.params.TipoRendimento
-import factory.ativo.instances.CdbCdi
-import factory.ativo.instances.LcxCdi
-import factory.ativo.instances.LcxIpca
-import factory.ativo.instances.LcxPre
-import domain.AtivoRendaFixa
 import java.time.LocalDate
 
 object AtivoFactory {
@@ -30,9 +27,9 @@ object AtivoFactory {
                 TipoRendimento.Pre -> LcxPre(taxaPrefixada, banco, dataVencimento)
             }
             TipoAtivo.Cdb -> when (tipoRendimento) {
-                TipoRendimento.Ipca -> TODO("CDB ipca não implementado")
+                TipoRendimento.Ipca -> CdbIpca(porcentagemIndice, taxaPrefixada, banco, dataVencimento)
                 TipoRendimento.Cdi -> CdbCdi(porcentagemIndice, banco, dataVencimento)
-                TipoRendimento.Pre -> TODO("CDB pré-fixado não implementado")
+                TipoRendimento.Pre -> CdbPre(taxaPrefixada, banco, dataVencimento)
             }
         }
     }
